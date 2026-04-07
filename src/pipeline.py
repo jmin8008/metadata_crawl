@@ -390,6 +390,7 @@ def main() -> None:
     parser.add_argument("--geo-only", action="store_true")
     parser.add_argument("--sra-only", action="store_true")
     parser.add_argument("--gse", nargs="*", help="Specific GSE accessions")
+    parser.add_argument("--gse-file", type=str, help="File with GSE accessions (one per line)")
     parser.add_argument("--sra-file", type=str, help="Path to already-downloaded SRA dump file (skip FTP)")
     parser.add_argument("--log-level", default="INFO")
     parser.add_argument("--export-json", action="store_true",
@@ -406,7 +407,10 @@ def main() -> None:
 
     pipeline = MetadataPipeline()
     sra_file = Path(args.sra_file) if args.sra_file else None
-    result = asyncio.run(pipeline.run(geo=geo, sra=sra, geo_accessions=args.gse, sra_file=sra_file))
+    gse_list = args.gse
+    if args.gse_file:
+        gse_list = Path(args.gse_file).read_text().strip().splitlines()
+    result = asyncio.run(pipeline.run(geo=geo, sra=sra, geo_accessions=gse_list, sra_file=sra_file))
     print(json.dumps(result, indent=2, default=str))
 
     # Export to JSON if using SQLite and requested

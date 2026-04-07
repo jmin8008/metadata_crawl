@@ -5,8 +5,11 @@
 GEO 및 SRA 데이터베이스의 모든 공공 생물정보학 실험 메타데이터를 전수(Exhaustive) 수집하여 PostgreSQL 통합 DB에 적재한다.
 
 **수집 대상:**
+
 - **GEO**: GSE (Series), GSM (Sample), GPL (Platform) — 제목, 요약, 샘플 특성, 프로토콜, 기여자, PubMed ID 등
+
 - **SRA**: SRP (Study), SRS (Sample), SRX (Experiment), SRR (Run) — 시퀀싱 전략, 장비, 리드 수, 파일 크기, 다운로드 경로 등
+
 - **Cross-ref**: BioSample, BioProject, PubMed ID 간 연결
 
 **핵심 요구사항:**
